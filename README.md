@@ -9,6 +9,9 @@ Follow these steps to set up and run the application locally.
 Install dependencies using mix:
 > mix deps.get
 
+Run tests with:
+> mix test
+
 Launch the application server with:
 > mix run --no-halt
 
