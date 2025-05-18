@@ -6,10 +6,12 @@ defmodule Fayrshare.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Plug.Cowboy, scheme: :http, plug: Fayrshare.Router, options: [port: 3000]}
+      {Plug.Cowboy, scheme: :http, plug: Fayrshare.Router, options: [port: port()]}
     ]
 
     opts = [strategy: :one_for_one, name: Fayrshare.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
+  defp port, do: Application.get_env(:fayrshare, :port, 8000)
 end
