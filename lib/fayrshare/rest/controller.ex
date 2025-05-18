@@ -5,7 +5,7 @@ defmodule Fayrshare.Rest.Controller do
   plug(:dispatch)
 
   match "/", via: :get do
-    send_resp(conn, 200, "Hello Fayrshare!")
+    send_resp(conn |> put_resp_content_type("application/json"), 200, Jason.encode!(%{hello: "fayrshare"}))
   end
 
   match _ do
