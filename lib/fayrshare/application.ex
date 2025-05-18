@@ -6,7 +6,7 @@ defmodule Fayrshare.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Plug.Cowboy, scheme: :http, plug: Fayrshare.Rest.Controller, options: [port: 3000]}
+      {Plug.Cowboy, scheme: :http, plug: Fayrshare.Router, options: [port: 3000]}
     ]
 
     opts = [strategy: :one_for_one, name: Fayrshare.Supervisor]

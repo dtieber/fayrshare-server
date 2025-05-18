@@ -1,4 +1,4 @@
-defmodule Fayrshare.Rest.Controller do
+defmodule Fayrshare.Router do
   use Plug.Router
 
   plug(:match)
