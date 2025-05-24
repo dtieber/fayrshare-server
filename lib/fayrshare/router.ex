@@ -1,10 +1,17 @@
 defmodule Fayrshare.Router do
   use Plug.Router
 
+  alias Services.ExpenseGroupService
+
   plug(Plug.Logger)
 
   plug(:match)
   plug(:dispatch)
+
+  match "/expense-groups", via: :get do
+    response = ExpenseGroupService.get_all_expense_groups()
+    response |> handle_response(conn)
+  end
 
   match _ do
     response = {:not_found, %{error: "Route is not mapped"}}
