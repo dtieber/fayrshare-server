@@ -11,7 +11,13 @@ defmodule RestApiTest.Router do
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert Jason.decode(conn.resp_body) == {:ok, [%{"id" => 1, "name" => "Expense Group One"}]}
+
+    assert Jason.decode(conn.resp_body) ==
+             {:ok,
+              [
+                %{"id" => 1, "name" => "Expense Group One"},
+                %{"id" => 2, "name" => "Expense Group Two"}
+              ]}
   end
 
   test "invalid route returns 404" do
