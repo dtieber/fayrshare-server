@@ -1,9 +1,9 @@
 defmodule Services.ExpenseGroupService do
   def get_all_expense_groups do
-    expense_groups = [
-      %{id: 1, name: "Expense Group One"}
-    ]
+    get_repository().select_all_expense_groups()
+  end
 
-    {:ok, expense_groups}
+  defp get_repository do
+    Application.get_env(:fayrshare, :expense_group_repository)
   end
 end
