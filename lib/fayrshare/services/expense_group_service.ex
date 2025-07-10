@@ -4,7 +4,7 @@ defmodule Services.ExpenseGroupService do
     {:ok, expense_groups}
   end
 
-  def get_expense_group_by_id(id) do
+  def get_expense_group_by_id(id) when is_integer(id) do
     expense_group = ExpenseGroup |> Repositories.ExpenseGroupRepository.get(id)
 
     case expense_group do
