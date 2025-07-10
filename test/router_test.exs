@@ -26,6 +26,18 @@ defmodule RestApiTest.Router do
               ]}
   end
 
+  test "POST /expense-groups creates new expense-group" do
+    conn = conn(:post, "/expense-groups", %{name: "My Expense Group"})
+
+    conn = Fayrshare.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+
+    {:ok, response} = Jason.decode(conn.resp_body)
+    assert response["name"] == "My Expense Group"
+  end
+
   test "invalid route returns 404" do
     conn = conn(:get, "/invalid")
 
