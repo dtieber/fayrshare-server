@@ -20,6 +20,11 @@ defmodule Fayrshare.Router do
     response |> handle_response(conn)
   end
 
+  post "/expense-groups" do
+    response = ExpenseGroupService.add_expense_group(conn.body_params)
+    response |> handle_response(conn)
+  end
+
   match _ do
     response = {:not_found, %{error: "Route is not mapped"}}
     response |> handle_response(conn)
