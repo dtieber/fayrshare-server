@@ -29,6 +29,7 @@ defmodule Fayrshare.Router do
     %{code: code, payload: payload} =
       case response do
         {:ok, payload} -> %{code: 200, payload: payload}
+        {:invalid, payload} -> %{code: 400, payload: %{error: payload}}
         {:not_found, payload} -> %{code: 404, payload: %{error: "Not found: #{payload.error}"}}
         {:error, _} -> %{code: 500, payload: %{error: "An error occurred"}}
       end
