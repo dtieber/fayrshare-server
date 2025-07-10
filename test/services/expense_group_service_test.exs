@@ -17,4 +17,22 @@ defmodule Repositories.ExpenseGroupServiceTest do
     assert {:invalid, _} =
              Services.ExpenseGroupService.add_expense_group(%{invalid: "invalid"})
   end
+
+  test "returns list of expense groups" do
+    {:ok, %ExpenseGroup{id: id1}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Expense Group One"})
+
+    {:ok, %ExpenseGroup{id: id2}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Expense Group Two"})
+
+    {:ok, expense_groups} =
+      Services.ExpenseGroupService.get_all_expense_groups()
+
+    simplified = Enum.map(expense_groups, fn eg -> %{id: eg.id, name: eg.name} end)
+
+    assert simplified == [
+             %{id: id1, name: "Expense Group One"},
+             %{id: id2, name: "Expense Group Two"}
+           ]
+  end
 end
