@@ -6,23 +6,16 @@ defmodule Fayrshare.Application do
 
   @impl true
   def start(_type, _args) do
-    children = Application.get_env(:fayrshare, :environment) |> children()
+    children = [
+      {Plug.Cowboy, scheme: :http, plug: Fayrshare.Router, options: [port: port()]},
+      Repositories.ExpenseGroupRepository
+    ]
 
     opts = [strategy: :one_for_one, name: Fayrshare.Supervisor]
 
     Logger.info("The server has started on port: #{port()}...")
 
     Supervisor.start_link(children, opts)
-  end
-
-  defp children(:test) do
-    [
-      {Plug.Cowboy, scheme: :http, plug: Fayrshare.Router, options: [port: port()]}
-    ]
-  end
-
-  defp children(_) do
-    children(:test) ++ [Repositories.ExpenseGroupRepository]
   end
 
   defp port, do: Application.get_env(:fayrshare, :port, 8000)
