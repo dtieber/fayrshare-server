@@ -16,3 +16,12 @@ Launch the application server with:
 > mix run --no-halt
 
 The server should now be running on http://localhost:3000.
+
+## Testing
+
+Integration tests are executed against an [SQL Sandbox](http://hexdocs.pm/ecto_sql/Ecto.Adapters.SQL.Sandbox.html).
+Therefore, the database needs to be initialised with 
+```
+MIX_ENV=test mix ecto.create
+MIX_ENV=test mix ecto.migrate
+```
