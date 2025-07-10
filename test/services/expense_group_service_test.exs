@@ -13,7 +13,7 @@ defmodule Repositories.ExpenseGroupServiceTest do
       Services.ExpenseGroupService.add_expense_group(%{name: "Expense Group Two"})
 
     {:ok, expense_groups} =
-      Services.ExpenseGroupService.get_all_expense_groups()
+      Services.ExpenseGroupService.list_expense_groups()
 
     simplified = Enum.map(expense_groups, fn eg -> %{id: eg.id, name: eg.name} end)
 

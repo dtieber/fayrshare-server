@@ -16,7 +16,7 @@ defmodule Fayrshare.Router do
   plug(:dispatch)
 
   get "/expense-groups" do
-    response = ExpenseGroupService.get_all_expense_groups()
+    response = ExpenseGroupService.list_expense_groups()
     response |> handle_response(conn)
   end
 

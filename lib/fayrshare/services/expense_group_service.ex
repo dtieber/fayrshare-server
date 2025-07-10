@@ -1,5 +1,5 @@
 defmodule Services.ExpenseGroupService do
-  def get_all_expense_groups do
+  def list_expense_groups do
     expense_groups = Repositories.ExpenseGroupRepository.all(ExpenseGroup)
     {:ok, expense_groups}
   end
