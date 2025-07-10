@@ -36,6 +36,17 @@ defmodule Fayrshare.Router do
     response |> handle_response(conn)
   end
 
+  put "/expense-groups/:id" do
+    case Integer.parse(conn.params["id"]) do
+      {id, ""} ->
+        response = ExpenseGroupService.update_expense_group(id, conn.body_params)
+        response |> handle_response(conn)
+
+      _ ->
+        {:invalid, "Id #{conn.params["id"]} is invalid"} |> handle_response(conn)
+    end
+  end
+
   match _ do
     response = {:not_found, %{error: "Route is not mapped"}}
     response |> handle_response(conn)
