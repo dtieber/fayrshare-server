@@ -25,4 +25,31 @@ defmodule Services.ExpenseGroupService do
         response
     end
   end
+
+  def update_expense_group(id, data) when is_integer(id) do
+    data_id = Map.get(data, :id) || Map.get(data, "id")
+
+    if data_id != id do
+      {:invalid, "Id has to match id in body"}
+    else
+      update_existing_expense_group(id, data)
+    end
+  end
+
+  defp update_existing_expense_group(id, data) do
+    case Repositories.ExpenseGroupRepository.get(ExpenseGroup, id) do
+      nil ->
+        {:not_found, "Expense group not found"}
+
+      expense_group ->
+        expense_group
+        |> ExpenseGroup.changeset(data)
+        |> Repositories.ExpenseGroupRepository.update()
+        |> handle_update_result()
+    end
+  end
+
+  defp handle_update_result({:ok, updated}), do: {:ok, updated}
+
+  defp handle_update_result({:error, _}), do: {:invalid, "Invalid data"}
 end

@@ -48,4 +48,34 @@ defmodule Repositories.ExpenseGroupServiceTest do
     assert {:invalid, _} =
              Services.ExpenseGroupService.add_expense_group(%{invalid: "invalid"})
   end
+
+  test "updates an expense group" do
+    {:ok, %ExpenseGroup{id: id, name: _}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Test Expense Group"})
+
+    {:ok, updated_expense_group} =
+      Services.ExpenseGroupService.update_expense_group(id, %{
+        id: id,
+        name: "Updated Expense Group"
+      })
+
+    assert updated_expense_group.id == id
+    assert updated_expense_group.name == "Updated Expense Group"
+  end
+
+  test "updating an expense group fails if ids are different" do
+    {:ok, %ExpenseGroup{id: id, name: _}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Test Expense Group"})
+
+    assert {:invalid, _} =
+             Services.ExpenseGroupService.update_expense_group(id, %{id: id + 1, name: 3})
+  end
+
+  test "updating an expense group fails with invalid properties" do
+    {:ok, %ExpenseGroup{id: id, name: _}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Test Expense Group"})
+
+    assert {:invalid, _} =
+             Services.ExpenseGroupService.update_expense_group(id, %{id: id, name: 3})
+  end
 end
