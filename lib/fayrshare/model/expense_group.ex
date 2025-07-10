@@ -2,7 +2,7 @@ defmodule ExpenseGroup do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, except: [:__meta__, :__struct__]}
+  @derive {Jason.Encoder, only: [:id, :name]}
 
   schema "expense_groups" do
     field :name, :string
