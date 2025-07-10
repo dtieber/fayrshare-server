@@ -20,6 +20,17 @@ defmodule Fayrshare.Router do
     response |> handle_response(conn)
   end
 
+  get "/expense-groups/:id" do
+    case Integer.parse(conn.params["id"]) do
+      {id, ""} ->
+        response = ExpenseGroupService.get_expense_group_by_id(id)
+        response |> handle_response(conn)
+
+      _ ->
+        {:invalid, "Id #{conn.params["id"]} is invalid"} |> handle_response(conn)
+    end
+  end
+
   post "/expense-groups" do
     response = ExpenseGroupService.add_expense_group(conn.body_params)
     response |> handle_response(conn)

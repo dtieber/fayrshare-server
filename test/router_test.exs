@@ -26,6 +26,21 @@ defmodule RestApiTest.Router do
               ]}
   end
 
+  test "GET /expense-groups/:id returns expense group" do
+    {:ok, %ExpenseGroup{id: id1}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Expense Group One"})
+
+    conn = conn(:get, "/expense-groups/#{id1}")
+
+    conn = Fayrshare.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+
+    assert Jason.decode(conn.resp_body) ==
+             {:ok, %{"id" => id1, "name" => "Expense Group One"}}
+  end
+
   test "POST /expense-groups creates new expense-group" do
     conn = conn(:post, "/expense-groups", %{name: "My Expense Group"})
 
