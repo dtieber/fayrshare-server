@@ -4,7 +4,7 @@ defmodule RestApiTest.Router do
 
   @opts Fayrshare.Router.init([])
 
-  test "GET /expense-groups returns list of expense-groups" do
+  test "GET /expense-groups returns list of expense groups" do
     {:ok, %ExpenseGroup{id: id1}} =
       Services.ExpenseGroupService.add_expense_group(%{name: "Expense Group One"})
 
@@ -41,7 +41,7 @@ defmodule RestApiTest.Router do
              {:ok, %{"id" => id1, "name" => "Expense Group One"}}
   end
 
-  test "POST /expense-groups creates new expense-group" do
+  test "POST /expense-groups creates new expense group" do
     conn = conn(:post, "/expense-groups", %{name: "My Expense Group"})
 
     conn = Fayrshare.Router.call(conn, @opts)
