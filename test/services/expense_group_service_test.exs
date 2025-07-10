@@ -35,4 +35,17 @@ defmodule Repositories.ExpenseGroupServiceTest do
              %{id: id2, name: "Expense Group Two"}
            ]
   end
+
+  test "returns an expense group by id" do
+    {:ok, %ExpenseGroup{id: id}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Test Expense Group"})
+
+    {:ok, expense_group} = Services.ExpenseGroupService.get_expense_group_by_id(id)
+
+    assert expense_group.id == id
+  end
+
+  test "returns :not_found when expense group cannot be found by id" do
+    assert {:not_found, _} = Services.ExpenseGroupService.get_expense_group_by_id(1)
+  end
 end

@@ -16,4 +16,13 @@ defmodule Services.ExpenseGroupService do
     expense_groups = Repositories.ExpenseGroupRepository.all(ExpenseGroup)
     {:ok, expense_groups}
   end
+
+  def get_expense_group_by_id(id) do
+    expense_group = ExpenseGroup |> Repositories.ExpenseGroupRepository.get(id)
+
+    case expense_group do
+      nil -> {:not_found, "Could not find expense group with id ${id}"}
+      _ -> {:ok, expense_group}
+    end
+  end
 end
