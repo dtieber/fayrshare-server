@@ -8,7 +8,7 @@ defmodule Fayrshare.Router do
   plug(:match)
   plug(:dispatch)
 
-  match "/expense-groups", via: :get do
+  get "/expense-groups" do
     response = ExpenseGroupService.get_all_expense_groups()
     response |> handle_response(conn)
   end
