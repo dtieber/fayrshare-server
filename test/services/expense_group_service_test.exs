@@ -5,19 +5,6 @@ defmodule Repositories.ExpenseGroupServiceTest do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Repositories.ExpenseGroupRepository)
   end
 
-  test "adds an expense group" do
-    {:ok, %ExpenseGroup{id: id, name: name}} =
-      Services.ExpenseGroupService.add_expense_group(%{name: "Test Expense Group"})
-
-    assert id != nil
-    assert name == "Test Expense Group"
-  end
-
-  test "does not add an invalid expense group" do
-    assert {:invalid, _} =
-             Services.ExpenseGroupService.add_expense_group(%{invalid: "invalid"})
-  end
-
   test "returns list of expense groups" do
     {:ok, %ExpenseGroup{id: id1}} =
       Services.ExpenseGroupService.add_expense_group(%{name: "Expense Group One"})
@@ -47,5 +34,18 @@ defmodule Repositories.ExpenseGroupServiceTest do
 
   test "returns :not_found when expense group cannot be found by id" do
     assert {:not_found, _} = Services.ExpenseGroupService.get_expense_group_by_id(1)
+  end
+
+  test "adds an expense group" do
+    {:ok, %ExpenseGroup{id: id, name: name}} =
+      Services.ExpenseGroupService.add_expense_group(%{name: "Test Expense Group"})
+
+    assert id != nil
+    assert name == "Test Expense Group"
+  end
+
+  test "does not add an invalid expense group" do
+    assert {:invalid, _} =
+             Services.ExpenseGroupService.add_expense_group(%{invalid: "invalid"})
   end
 end
