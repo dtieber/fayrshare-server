@@ -12,4 +12,9 @@ defmodule Repositories.ExpenseGroupServiceTest do
     assert id != nil
     assert name == "Test Expense Group"
   end
+
+  test "does not add an invalid expense group" do
+    assert {:invalid, _} =
+             Services.ExpenseGroupService.add_expense_group(%{invalid: "invalid"})
+  end
 end
