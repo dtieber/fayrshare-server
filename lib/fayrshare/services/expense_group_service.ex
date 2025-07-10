@@ -7,17 +7,13 @@ defmodule Services.ExpenseGroupService do
         {:invalid, "Invalid data"}
 
       true ->
-        response = get_repository().insert(changeset)
+        response = Repositories.ExpenseGroupRepository.insert(changeset)
         response
     end
   end
 
   def get_all_expense_groups do
-    expense_groups = get_repository().all(ExpenseGroup)
+    expense_groups = Repositories.ExpenseGroupRepository.all(ExpenseGroup)
     {:ok, expense_groups}
-  end
-
-  defp get_repository do
-    Application.get_env(:fayrshare, :expense_group_repository)
   end
 end
